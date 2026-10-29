@@ -1,35 +1,47 @@
 <?php
 
-class Produk {
+class product {
+
+    //property
     public string $kode;
     public string $nama;
     public int $harga;
     public int $stok;
 
+    //constant
     public const PAJAK = 0.11;
-}
 
-$produk = new Produk();
-$produk->kode = 'P0001';
-$produk->nama = 'Laptop';
-$produk->harga = 10000000;
-$produk->stok = 5;
+    public function __construct($kode, $nama, $harga, $stok) {
+        $this->kode = $kode;
+        $this->nama = $nama;
+        $this->harga = $harga;
+        $this->stok = $stok;
+    }
+    
+    public function pajak() {
+        return self::PAJAK * 100; // 11
 
-$pajak = Produk::PAJAK * 100;
-$jumlahPajak = $produk->harga * Produk::PAJAK;
+    }
 
-$total = $produk->harga + $jumlahPajak;
+    public function total(){
+        return $this->harga + ($this->harga * self::PAJAK);
+    }
+}    
 
-echo "Produk: " . $produk->nama;
+//object
+$produk = new product('P0001','Laptop',1000000,5);
+
+//hasil
+echo "produk: ". $produk->nama;
 echo "<br/>";
 
-echo "Harga: " . $produk->harga;
+echo "harga: rp.". $produk->harga;
 echo "<br/>";
 
-echo "Stok: " . $produk->stok;
+echo "stok: ". $produk->stok;
 echo "<br/>";
 
-echo "Pajak: " . $pajak . "%";
+echo "pajak: ". $produk->pajak(). "%";
 echo "<br/>";
 
-echo "Harga setelah pajak: Rp. " . $total;
+echo "total harga setelah pajak: RP". $produk->total();
